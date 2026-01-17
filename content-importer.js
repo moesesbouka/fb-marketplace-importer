@@ -27,13 +27,14 @@
  *
  * Your Supabase:
  * - URL: https://sfheqjnxlkygjfohoybo.supabase.co
- * - Key: (paste anon key below)
+ * - Key: (eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNmaGVxam54bGt5Z2pmb2hveWJvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjgzNTc3NjUsImV4cCI6MjA4MzkzMzc2NX0.oWEnB48w_k_hOtYM1Ls2AHj8j-THDs_43BBzXrqPyxY)
  */
 
 (() => {
   "use strict";
 
   /**********************
+
    * 1) CONFIG — EDIT ME
    **********************/
   const SUPABASE_URL = "https://sfheqjnxlkygjfohoybo.supabase.co";
