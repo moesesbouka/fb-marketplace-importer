@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+  <!-- No network, background clipboard, accessibility, overlay, or notification permission -->
+  <application android:label="Moe Council Bridge" android:allowBackup="false"
+      android:theme="@android:style/Theme.Material.Light.NoActionBar"
+      android:usesCleartextTraffic="false">
+    <activity android:name=".MainActivity" android:exported="true"
+        android:label="Send to Moe Council" android:launchMode="singleTop">
+      <intent-filter>
+        <action android:name="android.intent.action.MAIN"/>
+        <category android:name="android.intent.category.LAUNCHER"/>
+      </intent-filter>
+      <intent-filter>
+        <action android:name="android.intent.action.PROCESS_TEXT"/>
+        <category android:name="android.intent.category.DEFAULT"/>
+        <data android:mimeType="text/plain"/>
+      </intent-filter>
+      <intent-filter>
+        <action android:name="android.intent.action.SEND"/>
+        <category android:name="android.intent.category.DEFAULT"/>
+        <data android:mimeType="text/plain"/>
+      </intent-filter>
+    </activity>
+    <service android:name=".CouncilTileService"
+        android:label="Send to Moe" android:icon="@android:drawable/ic_menu_share"
+        android:exported="true"
+        android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
+      <intent-filter>
+        <action android:name="android.service.quicksettings.action.QS_TILE"/>
+      </intent-filter>
+    </service>
+  </application>
+</manifest>
