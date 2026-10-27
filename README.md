@@ -1,21 +1,20 @@
-# Moe Council Bridge v0.2 (test build)
-A native Android companion for Pixel 10 Pro XL / Android 17. It is **not** a modification of ChatGPT.
+# Moe Council Bridge v0.3 (Android 17 test)
+An on-device review-and-share companion. It cannot modify ChatGPT's selection toolbar.
 
-## What to test
-1. Install the debug APK from this branch's GitHub Actions artifact. Verify you trust the source.
-2. Highlight text in Chrome or another standard editable app, look for **Send to Moe Council** in the selection menu.
-3. Repeat in ChatGPT. Whether ChatGPT shows PROCESS_TEXT cannot be guaranteed.
-4. Fallback: use ChatGPT **Copy**, add the **Send to Moe** Quick Settings tile (edit Quick Settings tile layout), tap tile, review clipboard import, then tap **Send to AI Council (Android Share)** and pick the existing installed Moe AI Council PWA.
-5. Test accents, Arabic, long text, and no-text behavior.
+## Fast workflow
+1. Install the Moe AI Council PWA using Chrome's "Install app" menu: https://moe-ai-council.lovable.app/
+2. Install the Bridge v0.3 APK from GitHub Actions.
+3. In the Bridge, tap "Add Send to Moe Quick Settings tile" and approve Android's tile request.
+4. In ChatGPT, select text then tap Copy.
+5. Swipe to Quick Settings, tap Send to Moe. The Bridge imports the clipboard only after entering the foreground.
+6. Review or edit, then tap Send to AI Council. If an installed Council sharing target is detected, Android opens it directly. If not, select Council in the Android Share sheet.
+7. In Council, ask Claude/Gemini/Grok together and copy their review back to ChatGPT.
 
-## Security
-No Internet permission, Accessibility access, overlay permission, background clipboard monitor, or auto-send. User must explicitly choose to share. Android may display standard clipboard-use indicators.
+"Find / remember Council app" pairs with a detected Council sharing target; "Use Android Share instead" is a fallback. "Open Council website" does not append clipboard text to a URL. If the PWA was only bookmarked, install it as an app for Android share target support.
+
+## Privacy and limits
+No Internet, Accessibility, overlay or background clipboard permissions. No automatic outbound sharing. The screen's contents are held in memory only (apart from Android's transient saved instance state). Only the chosen target component name is persisted. Text is limited to 30,000 characters for Council. Test against a real Pixel 10 Pro XL running Android 17.
 
 ## Build
-Requires JDK 17, Gradle 8.11.1, Android SDK API 35 / build-tools 35.0.0.
-Run: `gradle :app:assembleDebug`.
-Output: `app/build/outputs/apk/debug/app-debug.apk`.
-This is a debug-signed APK, not a production release. Installing it requires Android's allow-from-this-source permission.
-
-## Limitations
-Android selection menu may omit third-party PROCESS_TEXT actions in ChatGPT; the user must test on the actual device. The Clipboard tile opens a foreground activity to comply with Android 10+ clipboard restrictions.
+JDK 17, Gradle 8.11.1, Android SDK API 35/build tools 35.0.0. Build command: gradle --no-daemon :app:assembleDebug. Result: app/build/outputs/apk/debug/app-debug.apk.
+This is debug-signed. If the new GitHub-runner signing key differs from v0.2, Android will require uninstalling v0.2 before installing v0.3.

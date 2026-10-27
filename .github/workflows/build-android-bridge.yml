@@ -30,11 +30,21 @@ jobs:
           gradle-version: '8.11.1'
       - name: Compile
         run: gradle --no-daemon :app:assembleDebug
+      - name: Verify permissions and version
+        shell: bash
+        run: |
+          APK=app/build/outputs/apk/debug/app-debug.apk
+          AAPT="$ANDROID_HOME/build-tools/35.0.0/aapt"
+          "$AAPT" dump badging "$APK" | grep -F "package: name='com.moe.councilbridge'"
+          "$AAPT" dump badging "$APK" | grep -F "versionName='0.3.0-test'"
+          if "$AAPT" dump permissions "$APK" | grep -E 'android.permission.(INTERNET|SYSTEM_ALERT_WINDOW|BIND_ACCESSIBILITY_SERVICE)'; then
+            echo "Unexpected sensitive permission"; exit 1
+          fi
       - name: Print APK hash
         run: sha256sum app/build/outputs/apk/debug/app-debug.apk
       - name: Upload debug APK
         uses: actions/upload-artifact@v4
         with:
-          name: Moe-Council-Bridge-v0.2-APK
+          name: Moe-Council-Bridge-v0.3-APK
           path: app/build/outputs/apk/debug/app-debug.apk
           if-no-files-found: error
